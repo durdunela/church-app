@@ -104,18 +104,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            const SizedBox(height: 15),
             CustomRoundedTextField(
               controller: fullNameController,
               hintText: 'Full Name',
               prefixIcon: const Icon(Icons.person),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             CustomRoundedTextField(
               controller: emailController,
               hintText: 'Email',
               prefixIcon: const Icon(Icons.email),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             CustomRoundedTextField(
               controller: passwordController,
               hintText: 'Password',
@@ -123,7 +124,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               obscureText: true,
               isPassword: true,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             CustomRoundedTextField(
               controller: confirmPasswordController,
               hintText: 'Confirm Password',
@@ -149,7 +150,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               onPressed: _signUp,
               text: 'Sign Up',
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             TextButton(
               onPressed: () {
                 Navigator.of(context).push(
