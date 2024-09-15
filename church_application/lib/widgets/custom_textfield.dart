@@ -19,7 +19,7 @@ class CustomRoundedTextField extends StatefulWidget {
     this.isPassword = false,
     this.borderRadius = 30.0,
     this.borderColor = Colors.grey,
-    this.focusedBorderColor = Colors.blue,
+    this.focusedBorderColor = Colors.purpleAccent,
     this.obscureText = false,
     this.prefixIcon,
     this.suffixIcon,

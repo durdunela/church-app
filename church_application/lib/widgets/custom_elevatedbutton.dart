@@ -4,7 +4,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     required this.text,
-    this.backgroundColor = Colors.red,
+    required this.backgroundColor,
     required this.onPressed,
   }) : super(key: key);
 
