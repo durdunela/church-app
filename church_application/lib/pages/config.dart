@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Use your machine's local IP address here
   final String baseUrl = 'http://192.168.1.28:3000';
 
   final String registrationEndpoint = '/registration';
