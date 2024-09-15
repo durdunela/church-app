@@ -1,0 +1,110 @@
+import 'package:church_application/pages/home_page.dart';
+import 'package:flutter/material.dart';
+import 'config.dart';
+
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool isLoading = false;
+  String? errorMessage;
+
+  final ApiService apiService = ApiService();
+
+  Future<void> _signIn() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+
+    if (!_validateInput(email, password)) return;
+
+    setState(() {
+      isLoading = true;
+      errorMessage = null;
+    });
+
+    try {
+      await apiService.signInUser(email, password);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Sign-in successful!')),
+      );
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  bool _validateInput(String email, String password) {
+    if (email.isEmpty || !email.contains('@')) {
+      setState(() {
+        errorMessage = 'Please enter a valid email address.';
+      });
+      return false;
+    }
+    if (password.isEmpty || password.length < 6) {
+      setState(() {
+        errorMessage = 'Password must be at least 6 characters long.';
+      });
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign In'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            if (errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Text(
+                  errorMessage!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+            if (isLoading)
+              const CircularProgressIndicator()
+            else
+              ElevatedButton(
+                onPressed: _signIn,
+                child: const Text('Sign In'),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
