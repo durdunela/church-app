@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://192.168.1.28:3000';
+  final String baseUrl = 'http://localhost:3000';
 
   final String registrationEndpoint = '/registration';
   final String signInEndpoint = '/signin';
@@ -10,20 +10,25 @@ class ApiService {
   Future<void> registerUser(
       String email, String password, String fullName) async {
     final url = Uri.parse(baseUrl + registrationEndpoint);
-    final response = await http.post(
-      url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        "email": email,
-        "password": password,
-        "fullName": fullName,
-      }),
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "email": email,
+          "password": password,
+          "fullName": fullName,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      print('User registered successfully');
-    } else {
-      print('Failed to register user: ${response.body}');
+      if (response.statusCode == 200) {
+        print('User registered successfully');
+      } else {
+        print(
+            'Failed to register user. Status code: ${response.statusCode}, Response: ${response.body}');
+      }
+    } catch (e) {
+      print('Error during registration: $e');
     }
   }
 
