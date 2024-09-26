@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 60, // Set fixed height for the button
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(10),
@@ -29,15 +30,18 @@ class CustomButton extends StatelessWidget {
         ],
       ),
       margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: InkWell(
         onTap: onPressed,
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+        child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
           ),
         ),
       ),
