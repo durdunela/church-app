@@ -22,21 +22,36 @@ class MyApp extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('მაცნე'),
-            centerTitle: true,
-          ),
           body: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SvgPicture.asset(
                   'assets/church_app.svg',
-                  height: 100,
+                  height: 140,
                 ),
               ),
+              PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: Container(
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text(
+                        'მაცნე',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16), // Add some space after the "AppBar"
               TabBar(
-                tabs: [
+                tabs: const [
                   Tab(text: 'ავტორიზაცია'),
                   Tab(text: 'რეგისტრაცია'),
                 ],

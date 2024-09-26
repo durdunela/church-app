@@ -112,7 +112,7 @@ class _LoginCardState extends State<LoginCard> {
               onPressed: _signIn,
               text: 'შესვლა',
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             Column(
               children: [
                 Text(
