@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16), // Add some space after the "AppBar"
+              const SizedBox(height: 16),
               TabBar(
                 tabs: const [
                   Tab(text: 'ავტორიზაცია'),
