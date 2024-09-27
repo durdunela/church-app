@@ -5,7 +5,9 @@ import 'package:church_application/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
 class SignupCard extends StatefulWidget {
-  const SignupCard({super.key});
+  final VoidCallback onSwitchToSignIn;
+
+  const SignupCard({super.key, required this.onSwitchToSignIn});
 
   @override
   State<SignupCard> createState() => _SignupCardState();
@@ -14,8 +16,8 @@ class SignupCard extends StatefulWidget {
 class _SignupCardState extends State<SignupCard> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
   final fullNameController = TextEditingController();
+  final verificationCodeController = TextEditingController();
   bool isLoading = false;
   String? errorMessage;
 
@@ -24,10 +26,10 @@ class _SignupCardState extends State<SignupCard> {
   Future<void> _signUp() async {
     final phone = phoneController.text.trim();
     final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
     final fullName = fullNameController.text.trim();
+    final verificationCode = verificationCodeController.text.trim();
 
-    if (!_validateInput(phone, password, confirmPassword, fullName)) return;
+    if (!_validateInput(phone, password, fullName, verificationCode)) return;
 
     setState(() {
       isLoading = true;
@@ -35,13 +37,14 @@ class _SignupCardState extends State<SignupCard> {
     });
 
     try {
-      await apiService.registerUser(phone, password, fullName);
+      await apiService.registerUser(
+          phone, password, fullName, verificationCode);
 
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => HomePage()),
       );
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign-up successful!')),
+        const SnackBar(content: Text('რეგისტრაცია წარმატებით დასრულდა!')),
       );
     } catch (e) {
       setState(() {
@@ -55,29 +58,29 @@ class _SignupCardState extends State<SignupCard> {
   }
 
   bool _validateInput(
-      String phone, String password, String confirmPassword, String fullName) {
+      String phone, String password, String fullName, String verificationCode) {
     if (fullName.isEmpty) {
       setState(() {
-        errorMessage = 'Please enter your full name.';
+        errorMessage = 'გთხოვთ, შეიყვანოთ თქვენი სრული სახელი.';
       });
       return false;
     }
     if (phone.isEmpty || !_isValidPhoneNumber(phone)) {
-      // Validate phone number
       setState(() {
-        errorMessage = 'Please enter a valid phone number.';
+        errorMessage = 'გთხოვთ, შეიყვანოთ სწორი ტელეფონის ნომერი.';
       });
       return false;
     }
     if (password.isEmpty || password.length < 6) {
       setState(() {
-        errorMessage = 'Password must be at least 6 characters long.';
+        errorMessage = 'პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო.';
       });
       return false;
     }
-    if (password != confirmPassword) {
+    if (verificationCode.isEmpty || verificationCode.length != 4) {
       setState(() {
-        errorMessage = 'Passwords do not match.';
+        errorMessage =
+            'გთხოვთ, შეიყვანოთ მოქმედი 4-ნიშნა დამადასტურებელი კოდი.';
       });
       return false;
     }
@@ -88,14 +91,13 @@ class _SignupCardState extends State<SignupCard> {
   void dispose() {
     phoneController.dispose();
     passwordController.dispose();
-    confirmPasswordController.dispose();
+    verificationCodeController.dispose();
     fullNameController.dispose();
     super.dispose();
   }
 
   bool _isValidPhoneNumber(String phone) {
-    final regex =
-        RegExp(r'^\d{9}$'); // Example: Validates 10-digit phone numbers
+    final regex = RegExp(r'^\d{9}$');
     return regex.hasMatch(phone);
   }
 
@@ -109,7 +111,6 @@ class _SignupCardState extends State<SignupCard> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const SizedBox(height: 15),
               CustomRoundedTextField(
                 controller: fullNameController,
                 hintText: 'მომხმარებლის სახელი/გვარი',
@@ -127,7 +128,13 @@ class _SignupCardState extends State<SignupCard> {
                 hintText: 'პაროლი',
                 prefixIcon: Icon(Icons.lock),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 15),
+              CustomRoundedTextField(
+                controller: verificationCodeController,
+                hintText: 'დამადასტურებელი კოდი',
+                prefixIcon: Icon(Icons.verified),
+              ),
+              const SizedBox(height: 10),
               if (errorMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
@@ -136,15 +143,23 @@ class _SignupCardState extends State<SignupCard> {
                     style: const TextStyle(color: Colors.red),
                   ),
                 ),
+              const SizedBox(height: 16),
               if (isLoading)
                 const CircularProgressIndicator()
               else
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
               CustomButton(
                 backgroundColor: Color(0xFFAA925C),
                 onPressed: _signUp,
-                text: 'ანგარიშის შექმნა',
-              )
+                text: 'რეგისტრაცია',
+              ),
+              TextButton(
+                onPressed: widget.onSwitchToSignIn,
+                child: const Text(
+                  "უკვე გაქვთ ანგარიში? შესვლა",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
             ],
           ),
         ),

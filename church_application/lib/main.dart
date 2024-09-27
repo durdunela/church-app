@@ -59,11 +59,26 @@ class MyApp extends StatelessWidget {
                 unselectedLabelColor: Colors.grey,
               ),
               Expanded(
-                child: TabBarView(
-                  children: [
-                    LoginCard(),
-                    SignupCard(),
-                  ],
+                child: Builder(
+                  builder: (BuildContext context) {
+                    final TabController tabController =
+                        DefaultTabController.of(context)!;
+
+                    return TabBarView(
+                      children: [
+                        LoginCard(
+                          onSwitchToSignUp: () {
+                            tabController.animateTo(1);
+                          },
+                        ),
+                        SignupCard(
+                          onSwitchToSignIn: () {
+                            tabController.animateTo(0);
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

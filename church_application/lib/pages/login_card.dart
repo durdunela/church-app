@@ -6,7 +6,9 @@ import 'package:church_application/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
 class LoginCard extends StatefulWidget {
-  const LoginCard({super.key});
+  final VoidCallback onSwitchToSignUp;
+
+  const LoginCard({super.key, required this.onSwitchToSignUp});
 
   @override
   State<LoginCard> createState() => _LoginCardState();
@@ -21,10 +23,10 @@ class _LoginCardState extends State<LoginCard> {
   final ApiService apiService = ApiService();
 
   Future<void> _signIn() async {
-    final email = fullnameController.text.trim();
+    final fullName = fullnameController.text.trim();
     final password = passwordController.text;
 
-    if (!_validateInput(email, password)) return;
+    if (!_validateInput(fullName, password)) return;
 
     setState(() {
       isLoading = true;
@@ -32,12 +34,12 @@ class _LoginCardState extends State<LoginCard> {
     });
 
     try {
-      await apiService.signInUser(email, password);
+      await apiService.signInUser(fullName, password);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => HomePage()),
       );
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign-in successful!')),
+        const SnackBar(content: Text('შესვლა წარმატებით დასრულდა!')),
       );
     } catch (e) {
       setState(() {
@@ -50,16 +52,16 @@ class _LoginCardState extends State<LoginCard> {
     }
   }
 
-  bool _validateInput(String email, String password) {
-    if (email.isEmpty || !email.contains('@')) {
+  bool _validateInput(String fullName, String password) {
+    if (fullName.isEmpty) {
       setState(() {
-        errorMessage = 'Please enter a valid email address.';
+        errorMessage = 'გთხოვთ, შეიყვანოთ თქვენი სრული სახელი.';
       });
       return false;
     }
     if (password.isEmpty || password.length < 6) {
       setState(() {
-        errorMessage = 'Password must be at least 6 characters long.';
+        errorMessage = 'პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო.';
       });
       return false;
     }
@@ -77,62 +79,51 @@ class _LoginCardState extends State<LoginCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Card(
-        margin: const EdgeInsets.all(20.0),
+        margin: EdgeInsets.all(20.0),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            CustomRoundedTextField(
-              controller: fullnameController,
-              hintText: 'მომხმარებელი',
-              prefixIcon: Icon(Icons.alternate_email),
-            ),
-            const SizedBox(height: 15),
-            CustomRoundedTextField(
-              hintText: 'პაროლი',
-              controller: passwordController,
-              prefixIcon: Icon(Icons.lock),
-              obscureText: true,
-              isPassword: true,
-            ),
-            const SizedBox(height: 15),
-            if (errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Text(
-                  errorMessage!,
-                  style: const TextStyle(color: Colors.red),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CustomRoundedTextField(
+                hintText: 'მომხმარებელი',
+                controller: fullnameController,
+                prefixIcon: Icon(Icons.alternate_email),
+              ),
+              const SizedBox(height: 15),
+              CustomRoundedTextField(
+                controller: passwordController,
+                hintText: 'პაროლი',
+                prefixIcon: Icon(Icons.lock),
+              ),
+              const SizedBox(height: 15),
+              if (errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    errorMessage!,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+              const SizedBox(height: 16),
+              if (isLoading)
+                const CircularProgressIndicator()
+              else
+                const SizedBox(height: 10),
+              CustomButton(
+                backgroundColor: Color(0xFFAA925C),
+                onPressed: _signIn,
+                text: 'შესვლა',
+              ),
+              TextButton(
+                onPressed: widget.onSwitchToSignUp,
+                child: const Text(
+                  "არ ხარ დარეგისტრირებული? შექმენი ანგარიში",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
-            if (isLoading)
-              const CircularProgressIndicator()
-            else
-              const SizedBox(height: 20),
-            CustomButton(
-              backgroundColor: Color(0xFFAA925C),
-              onPressed: _signIn,
-              text: 'შესვლა',
-            ),
-            const SizedBox(height: 30),
-            Column(
-              children: [
-                Text(
-                  'არ ხარ დარეგისტრირებული ჯერ?',
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SignupCard()));
-                  },
-                  child: Text(
-                    'შექმენი ანგარიში',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

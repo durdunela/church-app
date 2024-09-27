@@ -7,8 +7,8 @@ class ApiService {
   final String registrationEndpoint = '/registration';
   final String signInEndpoint = '/signin';
 
-  Future<void> registerUser(
-      String email, String password, String fullName) async {
+  Future<void> registerUser(String email, String password, String fullName,
+      String verificationCode) async {
     final url = Uri.parse(baseUrl + registrationEndpoint);
     try {
       final response = await http.post(
