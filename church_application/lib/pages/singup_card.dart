@@ -97,7 +97,7 @@ class _SignupCardState extends State<SignupCard> {
   }
 
   bool _isValidPhoneNumber(String phone) {
-    final regex = RegExp(r'^\d{9}$');
+    final regex = RegExp(r'^\d{12}$');
     return regex.hasMatch(phone);
   }
 
@@ -127,6 +127,7 @@ class _SignupCardState extends State<SignupCard> {
                 controller: passwordController,
                 hintText: 'პაროლი',
                 prefixIcon: Icon(Icons.lock),
+                isPassword: true,
               ),
               const SizedBox(height: 15),
               CustomRoundedTextField(

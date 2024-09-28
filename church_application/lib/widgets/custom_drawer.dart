@@ -1,139 +1,100 @@
-import 'package:church_application/pages/church_calendar.dart';
 import 'package:church_application/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+  final String text;
+
+  const CustomDrawer({
+    super.key,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_outlined),
-            title: const Text(
-              'სიახლეები',
-              style: TextStyle(fontSize: 14),
+      child: Container(
+        color: const Color(0xFFD7CCBA),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFFD7CCBA),
+              ),
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.black, fontSize: 15),
+              ),
             ),
-            onTap: () {
+            _buildListTileWithDivider('სიახლეები', () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const HomePage()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_outlined),
-            title: const Text(
-              'საეკლესიო კალენდარი',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'ლოცვანი',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'ქადაგებები',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'საეკლესიო რუკა',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'სამონასტრო ნაწარმი',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'მომლოცველობითი ტურები',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'მაცნე - კითხვა მამაოსთან',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'ლიტერატურა',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'შესაწირი / პროექტები',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.arrow_forward_ios_rounded),
-            title: const Text(
-              'ჩვენს შესახებ',
-              style: TextStyle(fontSize: 14),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChurchCalendar()));
-            },
-          ),
-        ],
+            }),
+            _buildListTileWithDivider('საეკლესიო კალენდარი', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('ლოცვანი', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('ქადაგებები', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('საეკლესიო რუქა', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('სამონასტრო ნაწარმი', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('მომლოცველობითი ტურები', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('მაცნე - კითხვა მამაოსთან', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('ლიტერატურა', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('შესაწირი / პროექტები', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+            _buildListTileWithDivider('ჩვენს შესახებ', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildListTileWithDivider(String title, VoidCallback onTap) {
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.arrow_forward_ios_outlined),
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+          onTap: onTap,
+        ),
+        const Divider(
+          height: 1,
+          thickness: 1,
+          color: Colors.black,
+        ),
+      ],
     );
   }
 }

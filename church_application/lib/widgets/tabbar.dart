@@ -46,8 +46,8 @@ class _AuthPageState extends State<AuthPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          SignupCard(onSwitchToSignIn: switchToSignIn), // Passing the callback
-          LoginCard(onSwitchToSignUp: switchToSignUp), // Passing the callback
+          SignupCard(onSwitchToSignIn: switchToSignIn),
+          LoginCard(onSwitchToSignUp: switchToSignUp),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:church_application/pages/config.dart';
 import 'package:church_application/pages/home_page.dart';
-import 'package:church_application/pages/singup_card.dart';
 import 'package:church_application/widgets/custom_elevatedbutton.dart';
 import 'package:church_application/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +94,7 @@ class _LoginCardState extends State<LoginCard> {
                 controller: passwordController,
                 hintText: 'პაროლი',
                 prefixIcon: Icon(Icons.lock),
+                isPassword: true,
               ),
               const SizedBox(height: 15),
               if (errorMessage != null)
