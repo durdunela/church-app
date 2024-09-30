@@ -31,32 +31,53 @@ class MyApp extends StatelessWidget {
                   height: 140,
                 ),
               ),
-              PreferredSize(
-                preferredSize: const Size.fromHeight(60),
-                child: Container(
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        'მაცნე',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    'მაცნე',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              TabBar(
-                tabs: const [
-                  Tab(text: 'ავტორიზაცია'),
-                  Tab(text: 'რეგისტრაცია'),
-                ],
-                labelColor: Theme.of(context).primaryColor,
-                unselectedLabelColor: Colors.grey,
+              Container(
+                height: 60,
+                child: TabBar(
+                  indicator: BoxDecoration(
+                    color: Color(0xFFAA925C),
+                    borderRadius: BorderRadius.circular(20),
+                    shape: BoxShape.rectangle,
+                  ),
+                  tabs: [
+                    Tab(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'ავტორიზაცია',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'რეგისტრაცია',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                  labelColor: Colors.white,
+                  indicatorWeight: 0,
+                ),
               ),
               Expanded(
                 child: Builder(
