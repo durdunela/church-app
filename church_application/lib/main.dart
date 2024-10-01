@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       title: 'Church App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: DefaultTabController(
@@ -76,6 +75,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ],
                   labelColor: Colors.white,
+                  indicatorColor: Colors.transparent,
                   indicatorWeight: 0,
                 ),
               ),
@@ -84,7 +84,6 @@ class MyApp extends StatelessWidget {
                   builder: (BuildContext context) {
                     final TabController tabController =
                         DefaultTabController.of(context);
-
                     return TabBarView(
                       children: [
                         LoginCard(

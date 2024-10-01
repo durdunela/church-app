@@ -1,3 +1,4 @@
+import 'package:church_application/models/calendar_model.dart';
 import 'package:church_application/widgets/custom_drawer.dart';
 import 'package:church_application/widgets/custom_navbar.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = <Widget>[
-    MainPage(),
-    Center(child: Text('ლოცვანი')),
-    Center(child: Text('ნაწარმი')),
-    Center(child: Text('სერვისი')),
-  ];
+  List<CalendarModel> calendar = [];
+
+  void _getCalendar() {
+    setState(() {
+      calendar = CalendarModel.getCalendar();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCalendar();
+  }
+
+  List<Widget> get _pages => [
+        MainPage(calendar: calendar),
+        Center(child: Text('ლოცვანი')),
+        Center(child: Text('ნაწარმი')),
+        Center(child: Text('სერვისი')),
+      ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,29 +60,57 @@ class _HomePageState extends State<HomePage> {
 }
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  final List<CalendarModel> calendar;
+
+  const MainPage({super.key, required this.calendar});
 
   @override
   Widget build(BuildContext context) {
-    final int itemCount = 5;
-
     return Column(
       children: [
         const SizedBox(
           height: 10,
         ),
         Container(
-          height: 100,
-          color: Colors.green,
+          height: 150,
           child: ListView.separated(
-            itemCount: itemCount,
+            itemCount: calendar.length,
             scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 20, right: 20),
             separatorBuilder: (context, index) => const SizedBox(width: 25),
             itemBuilder: (context, index) {
-              return Container(
-                width: 80,
-                height: 80,
-                color: Colors.white,
+              return Column(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        calendar[index].imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      calendar[index].name,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               );
             },
           ),
@@ -84,7 +127,7 @@ class MainPage extends StatelessWidget {
         ),
         Container(
           color: Colors.blue,
-          height: 200,
+          height: 150,
         ),
         const SizedBox(
           height: 15,
