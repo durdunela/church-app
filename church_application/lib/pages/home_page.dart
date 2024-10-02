@@ -87,7 +87,6 @@ class MainPage extends StatelessWidget {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.amber,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ClipRRect(
@@ -121,7 +120,7 @@ class MainPage extends StatelessWidget {
             height: 10,
           ),
           const Text(
-            '- სიახლეები -',
+            'სიახლეები',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
@@ -129,18 +128,29 @@ class MainPage extends StatelessWidget {
           ),
           Container(
             color: Colors.blue,
-            height: 150,
+            height: 250,
           ),
           const SizedBox(
             height: 15,
           ),
           const Text(
-            '- დამატებითი სერვისი -',
+            'დამატებითი სერვისი',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Container(
             color: Colors.red,
             height: 200,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Text(
+            'საკითხავი ლიტერატურა',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Container(
+            color: Colors.orange,
+            height: 100,
           ),
         ],
       ),

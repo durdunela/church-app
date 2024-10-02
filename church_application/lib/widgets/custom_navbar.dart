@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomNavbar extends StatelessWidget {
   final int selectedIndex;
@@ -12,21 +13,37 @@ class CustomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.abc),
+          icon: SvgPicture.asset(
+            'assets/home_page.svg',
+            width: 24,
+            height: 24,
+          ),
           label: 'მთავარი',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.abc),
+          icon: SvgPicture.asset(
+            'assets/prayers.svg',
+            width: 24,
+            height: 24,
+          ),
           label: 'ლოცვანი',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.abc),
+          icon: SvgPicture.asset(
+            'assets/goods.svg',
+            width: 24,
+            height: 24,
+          ),
           label: 'ნაწარმი',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.abc),
+          icon: SvgPicture.asset(
+            'assets/services.svg',
+            width: 24,
+            height: 24,
+          ),
           label: 'სერვისი',
         ),
       ],
