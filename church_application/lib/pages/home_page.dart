@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Church Application'),
         backgroundColor: const Color(0xFFD5BB7E),
@@ -66,81 +67,83 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          height: 150,
-          child: ListView.separated(
-            itemCount: calendar.length,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            separatorBuilder: (context, index) => const SizedBox(width: 25),
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        calendar[index].imagePath,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      calendar[index].name,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              );
-            },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          '- სიახლეები -',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          color: Colors.blue,
-          height: 150,
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        const Text(
-          '- დამატებითი სერვისი -',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          color: Colors.red,
-          height: 200,
-        ),
-      ],
+          Container(
+            height: 150,
+            child: ListView.separated(
+              itemCount: calendar.length,
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              separatorBuilder: (context, index) => const SizedBox(width: 25),
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          calendar[index].imagePath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        calendar[index].name,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            '- სიახლეები -',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            color: Colors.blue,
+            height: 150,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Text(
+            '- დამატებითი სერვისი -',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Container(
+            color: Colors.red,
+            height: 200,
+          ),
+        ],
+      ),
     );
   }
 }

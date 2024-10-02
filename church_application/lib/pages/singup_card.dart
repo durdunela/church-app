@@ -104,8 +104,8 @@ class _SignupCardState extends State<SignupCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Card(
-        margin: EdgeInsets.all(20.0),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
