@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
             'საკითხავი ლიტერატურა',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          Container(color: Colors.orange, height: 100),
+          Container(color: Colors.orange, height: 150),
         ],
       ),
     );
@@ -55,14 +55,13 @@ class MainPage extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 100,
+                    height: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child:
-                          Image.asset('assets/test5.png', fit: BoxFit.contain),
+                      child: Image.asset('assets/test5.png', fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -84,8 +83,52 @@ class MainPage extends StatelessWidget {
           const SizedBox(width: 20),
           Expanded(
             child: Column(
-              children: List.generate(3, (index) {
-                return Container(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/test1.jpg',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'სიახლეები',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                              style: TextStyle(fontSize: 12),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Second container
+                Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
@@ -111,7 +154,7 @@ class MainPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
-                              'News Title',
+                              'სიახლეები',
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             ),
@@ -127,8 +170,52 @@ class MainPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                );
-              }),
+                ),
+                // Third container
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/test3.jpg',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'სიახლეები',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                              style: TextStyle(fontSize: 12),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
