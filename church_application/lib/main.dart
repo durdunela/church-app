@@ -1,10 +1,11 @@
-import 'package:church_application/pages/login_card.dart';
-import 'package:church_application/pages/singup_card.dart';
+import 'package:church_application/Presentation/pages/login_card.dart';
+import 'package:church_application/Presentation/pages/singup_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-Future<void> main() async {
-  runApp(const MyApp());
+void main() async {
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

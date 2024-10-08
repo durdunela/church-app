@@ -1,5 +1,5 @@
-import 'package:church_application/pages/login_card.dart';
-import 'package:church_application/pages/singup_card.dart';
+import 'package:church_application/Presentation/pages/login_card.dart';
+import 'package:church_application/Presentation/pages/singup_card.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {

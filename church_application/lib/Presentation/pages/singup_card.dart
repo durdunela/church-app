@@ -1,19 +1,20 @@
-import 'package:church_application/pages/config.dart';
-import 'package:church_application/pages/home_page.dart';
-import 'package:church_application/widgets/custom_elevatedbutton.dart';
-import 'package:church_application/widgets/custom_textfield.dart';
+import 'package:church_application/Presentation/pages/home_page.dart';
+import 'package:church_application/Presentation/widgets/custom_elevatedbutton.dart';
+import 'package:church_application/Presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../Data/providers/auth_providers.dart';
 
-class SignupCard extends StatefulWidget {
+class SignupCard extends ConsumerStatefulWidget {
   final VoidCallback onSwitchToSignIn;
 
   const SignupCard({super.key, required this.onSwitchToSignIn});
 
   @override
-  State<SignupCard> createState() => _SignupCardState();
+  ConsumerState<SignupCard> createState() => _SignupCardState();
 }
 
-class _SignupCardState extends State<SignupCard> {
+class _SignupCardState extends ConsumerState<SignupCard> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final fullNameController = TextEditingController();
@@ -21,13 +22,13 @@ class _SignupCardState extends State<SignupCard> {
   bool isLoading = false;
   String? errorMessage;
 
-  final ApiService apiService = ApiService();
-
   Future<void> _signUp() async {
     final phone = phoneController.text.trim();
     final password = passwordController.text;
     final fullName = fullNameController.text.trim();
     final verificationCode = verificationCodeController.text.trim();
+
+    final authRepository = ref.read(authRepositoryProvider);
 
     if (!_validateInput(phone, password, fullName, verificationCode)) return;
 
@@ -37,7 +38,7 @@ class _SignupCardState extends State<SignupCard> {
     });
 
     try {
-      await apiService.registerUser(
+      await authRepository.registerUser(
           phone, password, fullName, verificationCode);
 
       Navigator.of(context).push(

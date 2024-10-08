@@ -1,19 +1,22 @@
-import 'package:church_application/pages/config.dart';
-import 'package:church_application/pages/home_page.dart';
-import 'package:church_application/widgets/custom_elevatedbutton.dart';
-import 'package:church_application/widgets/custom_textfield.dart';
+import 'package:church_application/Data/providers/auth_providers.dart';
+import 'package:church_application/Presentation/widgets/custom_elevatedbutton.dart';
+import 'package:church_application/Presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import '../../Data/services/config.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginCard extends StatefulWidget {
+import 'home_page.dart';
+
+class LoginCard extends ConsumerStatefulWidget {
   final VoidCallback onSwitchToSignUp;
 
   const LoginCard({super.key, required this.onSwitchToSignUp});
 
   @override
-  State<LoginCard> createState() => _LoginCardState();
+  ConsumerState<LoginCard> createState() => _LoginCardState();
 }
 
-class _LoginCardState extends State<LoginCard> {
+class _LoginCardState extends ConsumerState<LoginCard> {
   final fullnameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isLoading = false;
@@ -25,6 +28,8 @@ class _LoginCardState extends State<LoginCard> {
     final fullName = fullnameController.text.trim();
     final password = passwordController.text;
 
+    final authRepository = ref.read(authRepositoryProvider);
+
     if (!_validateInput(fullName, password)) return;
 
     setState(() {
@@ -33,8 +38,8 @@ class _LoginCardState extends State<LoginCard> {
     });
 
     try {
-      await apiService.signInUser(fullName, password);
-      Navigator.of(context).pushReplacement(
+      await authRepository.signInUser(fullName, password);
+      Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => HomePage()),
       );
       ScaffoldMessenger.of(context).showSnackBar(

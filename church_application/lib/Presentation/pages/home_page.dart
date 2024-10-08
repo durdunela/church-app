@@ -1,6 +1,6 @@
-import 'package:church_application/models/calendar_model.dart';
-import 'package:church_application/widgets/custom_drawer.dart';
-import 'package:church_application/widgets/custom_navbar.dart';
+import 'package:church_application/Presentation/models/calendar_model.dart';
+import 'package:church_application/Presentation/widgets/custom_drawer.dart';
+import 'package:church_application/Presentation/widgets/custom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
