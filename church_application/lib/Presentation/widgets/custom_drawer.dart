@@ -1,5 +1,8 @@
 import 'package:church_application/Presentation/pages/home_page.dart';
+import 'package:church_application/Presentation/pages/news_page.dart';
 import 'package:flutter/material.dart';
+
+import '../pages/church_calendar.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String text;
@@ -28,11 +31,11 @@ class CustomDrawer extends StatelessWidget {
             ),
             _buildListTileWithDivider('სიახლეები', () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+                  MaterialPageRoute(builder: (context) => const NewsPage()));
             }),
             _buildListTileWithDivider('საეკლესიო კალენდარი', () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ChurchCalendar()));
             }),
             _buildListTileWithDivider('ლოცვანი', () {
               Navigator.of(context).push(
